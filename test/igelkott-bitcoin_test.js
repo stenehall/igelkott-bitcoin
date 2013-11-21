@@ -17,7 +17,8 @@ describe('Bitcoin', function() {
     s = new Stream.PassThrough({objectMode: true});
 
     config = {
-      plugins:['privmsg'],
+      core:['privmsg'],
+      plugins: {},
       'adapter': s, 'connect': function() { this.server.emit('connect'); }
     };
 
@@ -26,7 +27,7 @@ describe('Bitcoin', function() {
 
 
   it('Should be able to return current USD exchange rates', function(done) {
-    igelkott.plugin.load('bitcoin', Bitcoin);
+    igelkott.plugin.load('bitcoin', {}, Bitcoin);
 
     s.on('data', function(data) {
       if(data == "PRIVMSG ##botbotbot :dsmith: The current USD exchange rate for one bitcoin is 371.42\r\n")
@@ -45,7 +46,7 @@ describe('Bitcoin', function() {
 
 
   it('Should be able to return other exchange rates', function(done) {
-    igelkott.plugin.load('bitcoin', Bitcoin);
+    igelkott.plugin.load('bitcoin', {}, Bitcoin);
 
     s.on('data', function(data) {
       if(data == "PRIVMSG ##botbotbot :dsmith: The current SEK exchange rate for one bitcoin is 2384.31\r\n")
